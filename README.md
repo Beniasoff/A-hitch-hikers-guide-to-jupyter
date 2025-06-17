@@ -114,14 +114,18 @@ cat jupyter_<job_number>.log
 ```
 Note that the only way this job will terminate is if it either runs out of time or you cancel it with one of the following two commands. Inlcuded in the [script](jupyter.sbatch) is a function that will automatically clear the log and error files
 
-```
+```zsh
 # To kill all jobs
 scancel -u $USER
 
 # To kill a specific job
 scancel <job_number>
 ```
-Lastly I have included a [shell script](sbatch_wrapper.sh) wrapper for the sbatch script that retrieves the server address and work node/hostname for the log file.  
+Lastly I have included a [shell script](sbatch_wrapper.sh) wrapper for the sbatch script that retrieves the server address and work node/hostname for the log file which can be run with 
+
+```
+./sbatch_wrapper.sh
+```
 
 
 
