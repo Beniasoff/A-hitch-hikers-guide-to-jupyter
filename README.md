@@ -46,7 +46,7 @@ alias myplace='cd  /cs/labs/mornitzan/<your username>'
 ```
 # Side Quest in a virtual envoriment
 
-Since you are going to be using a lot of different packages over the course of your time here you will want to create a vitrual enviroment for each project to avoid confilicts and installation issues (if only we could this in the real world!).
+You are going to be using a lot of different packages over the course of your time here you will want to create a vitrual enviroment for each project to avoid confilicts and installation issues (if only we could this in the real world!).
 
 ```zsh
 python3 -m venv <environment_name>
@@ -87,10 +87,22 @@ The output should look like this
 <img src="https://github.com/user-attachments/assets/cc33c4d5-a258-4825-8e78-895c0a428120" width="600" height="100">
 
 Copy paste the address to the server in chrome or in vscode's exisiting server option for kernel choice. Congratulations you have made it to jupyter. 
+To prevent the tunnel disconneting go to your ssh config file 
+
+```bash
+nano  ~/.ssh/config
+```
+and add this in 
+
+```bash
+Host *
+    ServerAliveInterval 180
+    ServerAliveCountMax 2
+```
 
 ### Long and short 
 
-The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what here is an exmaple [script](jupyter.sbatch) you can create your script using nano and then run it like so 
+The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what, here is an exmaple [script](jupyter.sbatch) you can create your script using nano and then run it like so 
 
 ```zsh
 sbatch jupyter.sbatch
@@ -100,7 +112,7 @@ The output will be "Submitted batch job <job_number>" to retrieve the address to
 ```zsh
 cat jupyter_<job_number>.log
 ```
-Note that the only way this job will terminate is if it either runs out of time or you cancel it with one of the following two commands
+Note that the only way this job will terminate is if it either runs out of time or you cancel it with one of the following two commands. Inlcuded in the [script](jupyter.sbatch) is a function that will automatically clear the log and error files
 
 ```
 # To kill all jobs
@@ -109,7 +121,7 @@ scancel -u $USER
 # To kill a specific job
 scancel <job_number>
 ```
-
+Lastly I have included a [shell script](sbatch_wrapper.sh) wrapper for the sbatch script that retrieves the server address and work node/hostname for the log file.  
 
 
 
