@@ -90,7 +90,29 @@ Copy paste the address to the server in chrome or in vscode's exisiting server o
 
 ### Long and short 
 
-The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what here is an exmaple script 
+The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what here is an exmaple [script](jupyter.sbatch) you can create your script using nano and then run it like so 
+
+```zsh
+sbatch jupyter.sbatch
+```
+The output will be "Submitted batch job <job_number>" to retrieve the address to the server you must enter the log file 
+
+```zsh
+cat jupyter_<job_number>.log
+```
+Note that the only way this job will terminate is if it either runs out of time or you cancel it with one of the following two commands
+
+```
+# To kill all jobs
+scancel -u $USER
+
+# To kill a specific job
+scancel <job_number>
+```
+
+
+
+
 
 
 
