@@ -4,8 +4,18 @@ Running Jupyter Notebooks On The Cluster
 <img src="https://github.com/user-attachments/assets/f7160169-8d5f-416a-830f-79a386b54488" width="600" height="400">
 
 
+## Table of Contents
 
-# Jump to pheonix
+- [Jump to Phoenix](#jump-to-pheonix)
+  - [Navigating to Your Space](#navigation-to-your-space)
+- [Setting Up Your Environment](#side-quest-in-a-virtual-enviroment)
+- [Running Jupyter](#to-jupyter)
+  - [Interactive Session (srun)](#short-and-long)
+  - [Batch Session (sbatch)](#long-and-short)
+
+## resources
+[sbatch script](jupyter.sbatch) and [shell script](sbatch_wrapper.sh)
+# Jump to pheonix 
 ### The jump
   
 The first step on our journey to jupyter will be to connect to the cluster, we do so by entering the following command in the terminal: 
@@ -33,7 +43,7 @@ You will now be prompted to enter your OTP (explained here https://wiki.rcs.huji
 
 <img src="https://github.com/user-attachments/assets/3936ad53-a956-4f8b-bb7d-9f29d4b7ee86" width="400" height="50">
 
-### Navidation to your space
+### Navigation to your space
 You have now entered the cluster but you are only at the login node which should only be used for file managenment and job submission, you now need to go to your space within the labs storage.
 
 ```zsh
@@ -44,7 +54,7 @@ Since you will be going here often we can write a simplfied command to use to ta
 ```zsh
 alias myplace='cd  /cs/labs/mornitzan/<your username>'
 ```
-# Side Quest in a virtual envoriment
+# Side Quest in a virtual enviroment
 
 You are going to be using a lot of different packages over the course of your time here you will want to create a vitrual enviroment for each project to avoid confilicts and installation issues (if only we could this in the real world!).
 
