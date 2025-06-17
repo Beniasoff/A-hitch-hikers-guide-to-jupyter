@@ -90,7 +90,7 @@ Copy paste the address to the server in chrome or in vscode's exisiting server o
 
 ### Long and short 
 
-The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what 
+The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what here is an exmaple script 
 
 
 
