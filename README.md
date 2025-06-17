@@ -112,7 +112,7 @@ Host *
 
 ### Long and short 
 
-The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what, here is an exmaple [script](jupyter.sbatch) you can create your script using nano and then run it like so 
+The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what, here is an example [script](jupyter.sbatch). If you do disconnect you can simply tunnel back to the work node the job is running on and access the server through the same address (which you can find in jupyter_<job_number>.log)  
 
 ```zsh
 sbatch jupyter.sbatch
