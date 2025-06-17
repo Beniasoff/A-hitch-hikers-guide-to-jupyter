@@ -122,6 +122,7 @@ The output will be "Submitted batch job <job_number>" to retrieve the address to
 ```zsh
 cat jupyter_<job_number>.log
 ```
+You now need to tunnel to the worker node you were allocated and then you can copy paste the server address to chrome or vscode ect. 
 Note that the only way this job will terminate is if it either runs out of time or you cancel it with one of the following two commands. Inlcuded in the [script](jupyter.sbatch) is a function that will automatically clear the log and error files
 
 ```zsh
