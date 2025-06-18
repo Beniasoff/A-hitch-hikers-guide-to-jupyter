@@ -71,18 +71,18 @@ At this point pip install ipykernel that will be required soon enough
 # To jupyter
 ### Short and long 
 
-To run a server we first need to create a job here will use the srun slum command to do so 
+To run a server we first need to create a job, here we will use the srun slum command to do so 
 
 ```zsh
 srun --time=8:00:00 --mem=16G --gres=gpu:rtx2080:1 --pty $SHELL
 ```
 Change the time and mem parameters according to your needs and you can pick a gpu from list for pheonix here: https://wiki.cs.huji.ac.il/wiki/Phoenix_cluster_policy
 
-You will notice that you are now in a working node of the cluster since you will be running a notebook locally on a server in the cluster you need to create a tunnel to the allocated working node. 
+You will notice that you are now in a working node of the cluster since you will be running a notebook locally on a server in the cluster you need to create a tunnel in a **new terminal**  to the allocated working node. 
 
 <img src="https://github.com/user-attachments/assets/2bd6cf1d-06f4-480b-aa0a-1ee7459f8544" width="500" height="75">
 
-In this example I have been allocated the node "dumfries-010" which I would then insert in this command to tunnel to, this needs to be done in a **new terminal**  
+In this example I have been allocated the node "dumfries-010" which I would then insert in this command to tunnel:
 
 ```zsh
 sh -J <your username>@bava.cs.huji.ac.il -L 8888:node:8888 <your username>@node
