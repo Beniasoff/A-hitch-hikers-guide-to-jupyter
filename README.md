@@ -9,6 +9,7 @@ Running Jupyter Notebooks On The Cluster
 - [Jump to Phoenix](#jump-to-pheonix)
   - [Navigating to Your Space](#navigation-to-your-space)
 - [Setting Up Your Environment](#side-quest-in-a-virtual-enviroment)
+- [Job submission with slurm](#getting-off-before-jupyter)
 - [Running Jupyter](#to-jupyter)
   - [Interactive Session (srun)](#short-and-long)
   - [Batch Session (sbatch)](#long-and-short)
@@ -68,17 +69,35 @@ source <environment_name>/bin/activate
 ```
 At this point pip install ipykernel that will be required soon enough 
 
-# To jupyter
-### Short and long 
-
-To run a server we first need to create a job, here we will use the srun slum command to do so 
+# Getting off Before jupyter
+If you dont want to tag along to jupyter and simply want to run a python script then just follow along the either of the following to two methods to submit a job and then you are good to go. lets take a look at the srun slurm command, change the time and mem parameters according to your needs and you can pick a gpu from list for pheonix here: https://wiki.cs.huji.ac.il/wiki/Phoenix_cluster_policy
 
 ```zsh
 srun --time=8:00:00 --mem=16G --gres=gpu:rtx2080:1 --pty $SHELL
 ```
-Change the time and mem parameters according to your needs and you can pick a gpu from list for pheonix here: https://wiki.cs.huji.ac.il/wiki/Phoenix_cluster_policy
+You are now in a working node and can run your script. The problem with srun is that it is tied to your terminal meaning if you close your terminal or disconnect from the server, the job will automatically be killed and all of the hard work you and the GPU have done will be erased. To mitigate the chances of being disconnected and your job being killed you can adjust your ssh config file 
 
-You will notice that you are now in a working node of the cluster since you will be running a notebook locally on a server in the cluster you need to create a tunnel in a **new terminal**  to the allocated working node. 
+```bash
+nano  ~/.ssh/config
+```
+and add this in 
+
+```bash
+Host *
+    ServerAliveInterval 180
+    ServerAliveCountMax 2
+```
+
+The next method allows you to run a job that will continue running on the cluster regardless of whether you are connected or not 
+
+```
+sbatch --mem=500m -c2 --gres=gpu:2 "myscript"
+``` 
+
+# To jupyter
+### Short and long
+To run a server we first need to submit a job, here we will use the srun slurm command to do so 
+Notice that you are now in a working node of the cluster since you will be running a notebook saved locally on your machine on a server that is running on the cluster. To facilitate a secure transfer of information between the cluster and your machine you need to create a tunnel in a **new terminal**  to the allocated working node. 
 
 <img src="https://github.com/user-attachments/assets/2bd6cf1d-06f4-480b-aa0a-1ee7459f8544" width="500" height="75">
 
@@ -97,22 +116,10 @@ The output should look like this
 <img src="https://github.com/user-attachments/assets/cc33c4d5-a258-4825-8e78-895c0a428120" width="600" height="100">
 
 Copy paste the address to the server in chrome or in vscode's exisiting server option for kernel choice. Congratulations you have made it to jupyter. 
-To prevent the tunnel disconneting go to your ssh config file 
-
-```bash
-nano  ~/.ssh/config
-```
-and add this in 
-
-```bash
-Host *
-    ServerAliveInterval 180
-    ServerAliveCountMax 2
-```
 
 ### Long and short 
 
-The problem with srun is that if you disconnect form the server the job will automatically be killed and all of the hard work you and the GPU have done will be erased. The solution I found is to instead use sbatch to submit the job and it will keep on running no matter what, here is an example [script](jupyter.sbatch). If you do disconnect you can simply tunnel back to the work node the job is running on and access the server through the same address (which you can find in jupyter_<job_number>.log)  
+As previously mentioned a job submitted with sbatch will keep on running even if you disconnect , here is an example [script](jupyter.sbatch). If you do disconnect you can simply tunnel back to the work node the job is running on and access the server through the same address (which you can find in jupyter_<job_number>.log)  
 
 ```zsh
 sbatch jupyter.sbatch
